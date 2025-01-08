@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CVEs with Corresponding CWEs</title>
+    <style>
+        body { font-family: sans-serif; }
+        .cve-list {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .cve-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px dotted #eee;
+            justify-content: space-between;
+        }
+        .cve-item:last-child {
+            border-bottom: none;
+        }
+        .cve-link {
+            color: blue;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .cve-link:hover {
+            text-decoration: underline;
+        }
+        .copy-button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+        .progress-bar-container {
+            width: 100px;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: lightcoral;
+            width: 0%; /* Set dynamically */
+        }
+    </style>
+</head>
+<body>
+    <h1>CVEs with Corresponding CWEs</h1>
+    <div class="cve-list">
+        <ul>
+            {% for cve_data in cves_data %}
+            <li class="cve-item">
+                <a href="/" class="cve-link" onclick="searchCVE('{{ cve_data.id }}')">{{ cve_data.id }}</a>
+                <button class="copy-button" onclick="copyToClipboard('{{ cve_data.id }}')">Copy</button>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: {{ cve_data.impact_percentage }}%;"></div>
+                </div>
+                <span style="font-size: 0.8em;">({{ cve_data.impact_score }})</span>
+            </li>
+            {% else %}
+            <li>No CVEs found with corresponding CWEs.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <p><a href="/">Go back to the main page</a></p>
+
+    <form id="cveSearchForm" method="POST" style="display: none;">
+        <input type="hidden" id="cve_id_search" name="cve_id">
+    </form>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                console.log('Async: Copying to clipboard was successful!');
+            }, function(err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+        }
+
+        function searchCVE(cveId) {
+            document.getElementById('cve_id_search').value = cveId;
+            document.getElementById('cveSearchForm').submit();
+        }
+    </script>
+</body>
+</html>

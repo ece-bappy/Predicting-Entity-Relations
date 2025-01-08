@@ -1,0 +1,5 @@
+networkx
+matplotlib
+Flask
+google-generativeai
+typing-extensions 

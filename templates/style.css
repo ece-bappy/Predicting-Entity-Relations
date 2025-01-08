@@ -1,0 +1,12 @@
+form{
+    display: flex;
+    align-items: center;
+}
+
+.inffos{
+   
+    width: 90vw;
+    margin: 0  auto;
+    text-align: justify;
+    text-justify: inter-word;
+}
