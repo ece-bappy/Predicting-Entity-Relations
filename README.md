@@ -1,0 +1,1 @@
+This project is a Flask web application that allows users to explore and visualize relationships between CVEs (Common Vulnerabilities and Exposures), CWEs (Common Weakness Enumerations), and CAPECs (Common Attack Pattern Enumeration and Classification). It leverages Google's Gemini Pro model for text summarization.
